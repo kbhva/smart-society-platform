@@ -1,0 +1,8 @@
+package com.smartsociety.platform.common;
+import jakarta.servlet.http.HttpServletRequest; import org.springframework.http.*; import org.springframework.web.bind.MethodArgumentNotValidException; import org.springframework.web.bind.annotation.*; import org.springframework.dao.DataIntegrityViolationException; import java.time.Instant; import java.util.List;
+@RestControllerAdvice public class GlobalExceptionHandler {
+ @ExceptionHandler(DomainException.class) ResponseEntity<ApiError> domain(DomainException e,HttpServletRequest r){return ResponseEntity.status(e.status()).body(new ApiError(Instant.now(),e.status().value(),e.status().getReasonPhrase(),e.getMessage(),r.getRequestURI(),List.of()));}
+ @ExceptionHandler(MethodArgumentNotValidException.class) ResponseEntity<ApiError> validation(MethodArgumentNotValidException e,HttpServletRequest r){var d=e.getBindingResult().getFieldErrors().stream().map(x->x.getField()+": "+x.getDefaultMessage()).toList();return ResponseEntity.badRequest().body(new ApiError(Instant.now(),400,"VALIDATION_ERROR","Invalid request",r.getRequestURI(),d));}
+ @ExceptionHandler(DataIntegrityViolationException.class) ResponseEntity<ApiError> conflict(DataIntegrityViolationException e,HttpServletRequest r){return ResponseEntity.status(409).body(new ApiError(Instant.now(),409,"CONFLICT","Resource conflicts with existing data",r.getRequestURI(),List.of()));}
+ @ExceptionHandler(Exception.class) ResponseEntity<ApiError> generic(Exception e,HttpServletRequest r){return ResponseEntity.status(500).body(new ApiError(Instant.now(),500,"INTERNAL_SERVER_ERROR","Unexpected server error",r.getRequestURI(),List.of()));}
+}

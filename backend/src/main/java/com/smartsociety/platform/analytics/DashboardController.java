@@ -1,0 +1,1 @@
+package com.smartsociety.platform.analytics;import org.springframework.web.bind.annotation.*;import java.util.*;@   RestController@RequestMapping("/api/v1/admin/dashboard")public class DashboardController{final DashboardService s;public DashboardController(DashboardService x){s=x;}@GetMapping public Map<String,Object> get(){return s.dashboard();}}

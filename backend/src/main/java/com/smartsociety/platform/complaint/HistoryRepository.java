@@ -1,0 +1,1 @@
+package com.smartsociety.platform.complaint; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*; public interface HistoryRepository extends JpaRepository<ComplaintHistory,Long>{List<ComplaintHistory> findByComplaintIdOrderByCreatedAtAsc(UUID id);}

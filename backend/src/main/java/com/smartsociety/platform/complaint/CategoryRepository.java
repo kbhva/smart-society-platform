@@ -1,0 +1,1 @@
+package com.smartsociety.platform.complaint; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*; public interface CategoryRepository extends JpaRepository<ComplaintCategory,Long>{Optional<ComplaintCategory> findByNameIgnoreCase(String n);}

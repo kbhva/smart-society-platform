@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: smart_society
+      POSTGRES_USER: society
+      POSTGRES_PASSWORD: society_dev
+    ports: ["5432:5432"]
+    volumes: ["postgres_data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U society -d smart_society"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  backend:
+    build: ./backend
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/smart_society
+      DB_USERNAME: society
+      DB_PASSWORD: society_dev
+      JWT_SECRET: change-this-to-a-very-long-random-secret-at-least-32-bytes
+      APP_CORS_ORIGINS: http://localhost:5173
+      APP_SEED_DEMO: "true"
+      MEDIA_ROOT: /app/uploads
+    ports: ["8080:8080"]
+    volumes: ["uploads:/app/uploads"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+  frontend:
+    build: ./frontend
+    ports: ["5173:80"]
+    depends_on: [backend]
+volumes:
+  postgres_data:
+  uploads:

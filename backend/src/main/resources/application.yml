@@ -1,0 +1,41 @@
+spring:
+  application.name: smart-society-api
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/smart_society}
+    username: ${DB_USERNAME:society}
+    password: ${DB_PASSWORD:society_dev}
+  jpa:
+    open-in-view: false
+    hibernate.ddl-auto: validate
+    properties.hibernate.jdbc.time_zone: UTC
+  flyway.enabled: true
+  servlet.multipart:
+    max-file-size: ${MAX_FILE_SIZE:5MB}
+    max-request-size: ${MAX_REQUEST_SIZE:6MB}
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties.mail.smtp.auth: ${MAIL_SMTP_AUTH:false}
+    properties.mail.smtp.starttls.enable: ${MAIL_STARTTLS:false}
+server:
+  port: ${PORT:8080}
+  error.include-message: never
+springdoc:
+  swagger-ui.path: /swagger-ui.html
+management.endpoints.web.exposure.include: health,info
+app:
+  jwt.secret: ${JWT_SECRET:change-this-to-a-long-development-secret-change-me-123456}
+  jwt.expiration-minutes: ${JWT_EXPIRATION_MINUTES:30}
+  cors.origins: ${APP_CORS_ORIGINS:http://localhost:5173}
+  media.provider: ${MEDIA_PROVIDER:local}
+  media.root: ${MEDIA_ROOT:./uploads}
+  media.s3.bucket: ${MEDIA_S3_BUCKET:}
+  media.s3.prefix: ${MEDIA_S3_PREFIX:complaint-photos/}
+  media.s3.region: ${MEDIA_S3_REGION:ap-south-1}
+  media.s3.endpoint: ${MEDIA_S3_ENDPOINT:}
+  media.s3.access-key: ${MEDIA_S3_ACCESS_KEY:}
+  media.s3.secret-key: ${MEDIA_S3_SECRET_KEY:}
+  seed-demo: ${APP_SEED_DEMO:false}
+  notifications.from: ${NOTIFICATION_FROM:no-reply@smartsociety.local}

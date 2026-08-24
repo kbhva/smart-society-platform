@@ -1,0 +1,1 @@
+package com.smartsociety.platform.notice; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*; public interface NoticeRepository extends JpaRepository<Notice,UUID>{List<Notice> findByPublishedTrueOrderByImportantDescPublishedAtDesc();}

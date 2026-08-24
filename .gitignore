@@ -1,0 +1,32 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Java / Maven
+backend/target/
+**/target/
+
+# Node
+frontend/node_modules/
+**/node_modules/
+
+# Frontend build
+frontend/dist/
+**/dist/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local databases / runtime files
+*.db
+*.sqlite

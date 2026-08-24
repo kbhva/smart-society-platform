@@ -1,0 +1,1 @@
+package com.smartsociety.platform.complaint;import org.springframework.web.bind.annotation.*;import java.util.*;@RestController@RequestMapping("/api/v1/categories")public class CategoryController{final CategoryRepository r;public CategoryController(CategoryRepository x){r=x;}@GetMapping public List<ComplaintCategory> all(){return r.findAll();}}

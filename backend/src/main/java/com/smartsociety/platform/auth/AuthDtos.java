@@ -1,0 +1,2 @@
+package com.smartsociety.platform.auth;
+import jakarta.validation.constraints.*; public final class AuthDtos { private AuthDtos(){} public record RegisterRequest(@NotBlank @Size(min=2,max=100) String fullName,@Email @NotBlank String email,@Size(min=8,max=72) String password){} public record LoginRequest(@Email @NotBlank String email,@NotBlank String password){} public record AuthResponse(String accessToken,String tokenType,String role,String name,String email){} }
